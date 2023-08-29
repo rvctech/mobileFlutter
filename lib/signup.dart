@@ -128,7 +128,7 @@ class SignUpBody extends StatelessWidget {
                   Icons.password_outlined,
                   color: Colors.redAccent,
                 ),
-                hintText: 'Re-Type Password',
+                hintText: 'Confirm Password',
                 hintStyle: TextStyle(color: Colors.grey),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.redAccent),

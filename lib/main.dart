@@ -42,7 +42,7 @@ class LoginBody extends StatelessWidget {
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.account_box_outlined,
                     color: Colors.redAccent,),
-                  hintText: 'Username',
+                  hintText: 'Email',
                   hintStyle: TextStyle(color: Colors.grey),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.redAccent)
