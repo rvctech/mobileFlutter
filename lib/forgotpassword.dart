@@ -14,8 +14,6 @@ class ForgotPasswordScreen  extends StatelessWidget {
   }
 }
 class ForgotPasswordBody extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
