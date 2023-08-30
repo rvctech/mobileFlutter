@@ -5,7 +5,7 @@ class ForgotPasswordScreen  extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Forgot Password'),
+        title: const Text('Forgot Password'), 
         backgroundColor: Colors.redAccent,
       ),
       body: ForgotPasswordBody(
