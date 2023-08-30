@@ -5,10 +5,11 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign Up'),
+        title: const Text('Sign Up'),
         backgroundColor: Colors.redAccent,
       ),
-      body: SignUpBody(),
+      body: SignUpBody(
+      ),
     );
   }
 }
@@ -17,7 +18,9 @@ class SignUpBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: BoxConstraints.expand(),
       color: Colors.black,
+      child:SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -26,9 +29,9 @@ class SignUpBody extends StatelessWidget {
             child: Image.asset('assets/images/logo.jpg', width: 220, height: 240),
             // Your logo here
           ),
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+          const SizedBox(height: 20),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 32.0),
             child: TextField(
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -44,9 +47,9 @@ class SignUpBody extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+          const SizedBox(height: 16),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 32.0),
             child: TextField(
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -62,9 +65,9 @@ class SignUpBody extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+          const SizedBox(height: 16),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 32.0),
             child: TextField(
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -80,9 +83,9 @@ class SignUpBody extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+          const SizedBox(height: 16),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 32.0),
             child: TextField(
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -98,9 +101,9 @@ class SignUpBody extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+          const SizedBox(height: 16),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 32.0),
             child: TextField(
               style: TextStyle(color: Colors.white),
               obscureText: true,
@@ -117,9 +120,9 @@ class SignUpBody extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+          const SizedBox(height: 16),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 32.0),
             child: TextField(
               style: TextStyle(color: Colors.white),
               obscureText: true,
@@ -136,7 +139,7 @@ class SignUpBody extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 40),
+          const SizedBox(height: 30),
           Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
@@ -145,17 +148,17 @@ class SignUpBody extends StatelessWidget {
                 // Implement your sign-up logic here
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.redAccent,
-                onPrimary: Colors.white,
+                foregroundColor: Colors.white, backgroundColor: Colors.redAccent,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
-              child: Text('Sign Up'),
+              child: const Text('Sign Up'),
+
             ),
           ),
         ],
       ),
-    );
+    ));
   }
 }

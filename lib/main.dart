@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tunyce/signup.dart';
+import 'forgotpassword.dart';
 
 void main() => runApp(LoginScreen());
 
@@ -19,7 +20,9 @@ class LoginBody extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
+      constraints: BoxConstraints.expand(),
       color: Colors.black,
+      child:SingleChildScrollView(
       child: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -33,7 +36,7 @@ class LoginBody extends StatelessWidget {
                 child: Image.asset('assets/images/logo.jpg', width: 270, height: 240),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 32.0),
               child:
@@ -51,7 +54,7 @@ class LoginBody extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 32.0),
               child: TextField(
@@ -68,7 +71,7 @@ class LoginBody extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -77,15 +80,14 @@ class LoginBody extends StatelessWidget {
                   // Implement your login logic here
                 },
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.redAccent,
-                    onPrimary: Colors.white,
+                    foregroundColor: Colors.white, backgroundColor: Colors.redAccent,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     )),
-                child: Text('Login '),
+                child: const Text('Login '),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -98,17 +100,26 @@ class LoginBody extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.redAccent,
-                    onPrimary: Colors.white,
+                    foregroundColor: Colors.white, backgroundColor: Colors.redAccent,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     )),
-                child: Text('Sign Up'),
+                child: const Text('Sign Up'),
               ),
+
+            ),
+            SizedBox(height: 40),
+            InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> ForgotPasswordScreen()));
+              },
+              child: Text('Forgot Password?',style:TextStyle(color: Colors.grey,
+              fontWeight: FontWeight.bold),
+              textScaleFactor: 1.3),
             ),
           ],
         ),
       ),
-    );
+    ));
   }
 }
