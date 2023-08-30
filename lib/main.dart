@@ -4,6 +4,7 @@ import 'package:tunyce/signup.dart';
 import 'forgotpassword.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'sidemenu.dart';
 
 void main() => runApp(LoginScreen());
 
@@ -79,7 +80,7 @@ class LoginBody extends StatelessWidget {
                     onPressed: () async {
                       const email =
                           "matatu@gmail.com"; // Replace with user's input
-                      const password = "Hope202"; // Replace with user's input
+                      const password = "Hope2022*"; // Replace with user's input
 
                       final response = await http.post(
                         Uri.parse(
@@ -87,20 +88,24 @@ class LoginBody extends StatelessWidget {
                         // Replace with your API endpoint
                         headers: {'Content-Type': 'application/json'},
                         body:
-                            jsonEncode({'email': email, 'password': password}),
+                        jsonEncode({'email': email, 'password': password}),
                       );
 
                       if (response.statusCode == 200) {
                         print('Test');
+                        Navigator
+                            .push(context,
+                          MaterialPageRoute(builder: (context) => SideMenuPage()),
+                      );
                       } else {
-                        Fluttertoast.showToast(
-                            msg: "Incorrect User or Password",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.CENTER,
-                            timeInSecForIosWeb: 1,
-                            textColor: Colors.white,
-                            fontSize: 16.0
-                        );
+                      Fluttertoast.showToast(
+                      msg: "Incorrect User or Password",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      textColor: Colors.white,
+                      fontSize: 16.0
+                      );
                       }
                     },
                     style: ElevatedButton.styleFrom(
