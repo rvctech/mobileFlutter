@@ -213,14 +213,14 @@ class _SideMenuPageState extends State<SideMenuPage> {
     //Center(child: Text('Search Page',style: TextStyle(color: Colors.white),)),
     const Center(
         child: Text(
-      'Library Page',
-      style: TextStyle(color: Colors.white),
-    )),
+          'Library Page',
+          style: TextStyle(color: Colors.white),
+        )),
     const Center(
         child: Text(
-      'Account',
-      style: TextStyle(color: Colors.white),
-    )),
+          'Account',
+          style: TextStyle(color: Colors.white),
+        )),
   ];
 
   @override

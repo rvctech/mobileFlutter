@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:tunyce/sidemenu.dart';
 import 'package:tunyce/signup.dart';
 import 'forgotpassword.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'sidemenu.dart';
 
 void main() => runApp(LoginScreen());
 
@@ -78,15 +78,9 @@ class LoginBody extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: ElevatedButton(
                     onPressed: () async {
-                      // final email = emailController.text;
-                      //  final password = passwordController.text;
                       const email =
                           "matatu@gmail.com"; // Replace with user's input
                       const password = "Hope2022*"; // Replace with user's input
-
-                      // print(email);
-                      // print(password);
-                      print("Tryyyyyyyyyyyyyy");
 
                       final response = await http.post(
                         Uri.parse(
@@ -94,20 +88,16 @@ class LoginBody extends StatelessWidget {
                         // Replace with your API endpoint
                         headers: {'Content-Type': 'application/json'},
                         body:
-                            // jsonEncode({'email': email, 'password': password}),
-                            jsonEncode({
-                          'email': 'matatu@gmail.com',
-                          'password': 'Hope2022*'
-                        }),
+                            jsonEncode({'email': email, 'password': password}),
                       );
 
                       if (response.statusCode == 200) {
-                        print('Test');
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => SideMenuPage()),
+                          MaterialPageRoute(builder: (context) => SideMenuPage()),
                         );
+
+                        print('Test');
                       } else {
                         Fluttertoast.showToast(
                             msg: "Incorrect User or Password",
@@ -115,7 +105,8 @@ class LoginBody extends StatelessWidget {
                             gravity: ToastGravity.CENTER,
                             timeInSecForIosWeb: 1,
                             textColor: Colors.white,
-                            fontSize: 16.0);
+                            fontSize: 16.0
+                        );
                       }
                     },
                     style: ElevatedButton.styleFrom(
