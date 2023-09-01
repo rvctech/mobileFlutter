@@ -1,9 +1,36 @@
+import 'dart:convert';
+
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class SideMenuPage extends StatefulWidget {
   @override
   _SideMenuPageState createState() => _SideMenuPageState();
+}
+
+Future<List<Map<String, dynamic>>> fetchGenreData() async {
+  final response = await http.get(Uri.parse(
+      'https://mighty-thicket-88919.herokuapp.com/api/videos/all_video_types/v1/'));
+
+  if (response.statusCode == 200) {
+    final List<dynamic> data = json.decode(response.body);
+    return data.cast<Map<String, dynamic>>();
+  } else {
+    throw Exception('Failed to fetch music data');
+  }
+}
+
+Future<List<Map<String, dynamic>>> fetchVideoData() async {
+  final response = await http.get(Uri.parse(
+      'https://mighty-thicket-88919.herokuapp.com/api/videos/mixes/latest/v1/'));
+
+  if (response.statusCode == 200) {
+    final List<dynamic> data = json.decode(response.body);
+    return data.cast<Map<String, dynamic>>();
+  } else {
+    throw Exception('Failed to fetch music data');
+  }
 }
 
 class _SideMenuPageState extends State<SideMenuPage> {
@@ -17,41 +44,56 @@ class _SideMenuPageState extends State<SideMenuPage> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         //First Menu Option is Playlist
-        Container(
-          color: Colors.black,
-          height: 150,
-          child: Swiper(
-            itemCount: 5, // Number of cards
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                onTap: () {
-                  // Handle card tap
-                  print('Playlist $index tapped');
-                },
-                child: Card(
-                  color: Colors.redAccent,
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Column(
-                    children: [
-                      // Add your card content here
-                      ListTile(
-                        title: Text('Playlist $index'),
-                        subtitle: const Text('Playlist description'),
-                        leading: const Icon(Icons.music_note),
+        FutureBuilder<List<Map<String, dynamic>>>(
+          future: fetchVideoData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator(); // Display a loading indicator while fetching data
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              final musicData = snapshot.data;
+
+              return Container(
+                color: Colors.black,
+                height: 150,
+                child: Swiper(
+                  itemCount: musicData!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final musicItem = musicData[index];
+
+                    return GestureDetector(
+                      onTap: () {
+                        // Handle card tap
+                        print('Music $index tapped');
+                      },
+                      child: Card(
+                        color: Colors.deepOrangeAccent,
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              title: Text(musicItem['name'] ?? 'Genre $index'),
+                              // Use 'name' field from API
+                              subtitle: Text(musicItem['description'] ??
+                                  'Music description'),
+                              // Use 'description' field from API
+                              leading: const Icon(Icons.music_note),
+                            ),
+                          ],
+                        ),
                       ),
-                      //Divider(thickness: 2),
-                    ],
-                  ),
+                    );
+                  },
+                  viewportFraction: 0.4,
+                  scale: 0.9,
                 ),
               );
-            },
-            // Customize swiper properties if needed
-            viewportFraction: 0.4,
-            scale: 0.9,
-          ),
+            }
+          },
         ),
 
         //Second Menu Option in the home scree
@@ -130,40 +172,72 @@ class _SideMenuPageState extends State<SideMenuPage> {
         ),
 
         //Fourth option in the home screen
-        Container(
-          height: 150,
-          child: Swiper(
-            itemCount: 5, // Number of cards
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                onTap: () {
-                  // Handle card tap
-                  print('Music $index tapped');
-                },
-                child: Card(
-                  color: Colors.blueAccent,
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Column(
-                    children: [
-                      // Add your card content here
-                      ListTile(
-                        title: Text('Music $index'),
-                        subtitle: const Text('Music description'),
-                        leading: const Icon(Icons.music_note),
+
+        FutureBuilder<List<Map<String, dynamic>>>(
+          future: fetchGenreData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator(); // Display a loading indicator while fetching data
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              final musicData = snapshot.data;
+
+              return Container(
+                color: Colors.black,
+                height: 150,
+                child: Swiper(
+                  itemCount: musicData!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final musicItem = musicData[index];
+
+                    return GestureDetector(
+                      onTap: () {
+                        // Handle card tap
+
+                        print('Music $index tapped');
+                      },
+                      child: Card(
+                        color: Colors.deepOrangeAccent,
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ListTile(
+                              leading: const Icon(Icons.music_note),
+                              title: const Text(
+                                'Genre:',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              subtitle: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                // Allow scrolling in the horizontal direction
+                                child: Text(
+                                  '${musicItem['name']}',
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      //Divider(thickness: 2),
-                    ],
-                  ),
+                    );
+                  },
+                  viewportFraction: 0.4,
+                  scale: 0.9,
                 ),
               );
-            },
-            // Customize swiper properties if needed
-            viewportFraction: 0.4,
-            scale: 0.9,
-          ),
+            }
+          },
         ),
       ],
     ),
@@ -191,7 +265,6 @@ class _SideMenuPageState extends State<SideMenuPage> {
                 ),
               ),
               const SizedBox(width: 10),
-              // Add spacing between TextField and Button
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
@@ -207,20 +280,56 @@ class _SideMenuPageState extends State<SideMenuPage> {
             ],
           ),
         ),
-        // Center(child: Text('Search Page', style: TextStyle(color: Colors.white),)),
       ],
     ),
-    //Center(child: Text('Search Page',style: TextStyle(color: Colors.white),)),
+
     const Center(
         child: Text(
-          'Library Page',
-          style: TextStyle(color: Colors.white),
-        )),
-    const Center(
-        child: Text(
-          'Account',
-          style: TextStyle(color: Colors.white),
-        )),
+      'Library Page',
+      style: TextStyle(color: Colors.white),
+    )),
+
+    //Account Upgrade menu
+    Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          DropdownButton<String>(
+            hint: const Text(
+              'Select the upgrade option',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            items: <String>[
+              'Driver',
+              'Agency',
+              'Deejay',
+              'Restaurant',
+              'Organisation'
+            ].map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            onChanged: (_) {},
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.redAccent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+            onPressed: () {
+              // Handle the submit button tap
+              // You can add your submit logic here
+            },
+            child: const Text('Upgrade', style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    )
   ];
 
   @override
