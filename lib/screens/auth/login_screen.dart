@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:tunyce/controllers/auth_controller.dart';
+import 'package:tunyce/di/app_bindings.dart';
 import 'package:tunyce/screens/auth/forgotpassword.dart';
+import 'package:tunyce/screens/main_screen.dart';
 import 'package:tunyce/sidemenu.dart';
 import 'package:tunyce/screens/auth/signup.dart';
 
@@ -87,11 +89,15 @@ class LoginBody extends GetView<AuthController> {
                         var res = await controller.loginUser();
 
                         if (res == true) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SideMenuPage()),
+                          Get.offAll(
+                            () => const MainScreen(),
+                            binding: AppBindigs(),
                           );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => MainScreen()),
+                          // );
                         } else {
                           Fluttertoast.showToast(
                               msg: "$res",

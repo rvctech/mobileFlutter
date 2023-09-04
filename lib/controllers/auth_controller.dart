@@ -19,6 +19,7 @@ class AuthController extends GetxController {
   @override
   onInit() async {
     emailController.text = 'matatu@gmail.com';
+    passwordController.text = "Hope2022*";
     super.onInit();
   }
 

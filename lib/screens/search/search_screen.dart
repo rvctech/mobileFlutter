@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:tunyce/core/common/app_colors.dart';
 import 'package:tunyce/widgets/drawer.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
         children: [
           Center(
-            child: Text('Home Screen'),
+            child: Text('SearchScreen'),
           )
         ],
       )),
