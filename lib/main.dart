@@ -14,9 +14,7 @@ class TunyceApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       initialBinding: AppBindigs(),
-      home: const Scaffold(
-        body: LoginBody(),
-      ),
+      home: LoginScreen(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: AppColors.primaryColor,

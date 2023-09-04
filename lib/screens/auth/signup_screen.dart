@@ -120,7 +120,7 @@ class SignUpScreen extends GetView<AuthController> {
                       label: 'Sign Up',
                       isLoading: controller.isLoading.value,
                       onTap: () async {
-                        // await controller.createAccount();
+                        await controller.createAccount();
                       },
                     ),
                   ),

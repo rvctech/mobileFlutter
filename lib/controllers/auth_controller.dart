@@ -36,9 +36,6 @@ class AuthController extends BaseController {
     super.onInit();
   }
 
-  // const email = "matatu@gmail.com"; // Replace with user's input
-  // const password = "Hope2022*"; // Replace with user's input
-
   Future<dynamic> loginUser() async {
     setLoading(true);
     var res = await _authRepository.loginUser(
@@ -50,5 +47,12 @@ class AuthController extends BaseController {
       _currentUser = res;
       return true;
     }
+  }
+
+  Future<dynamic> createAccount() async {
+    setLoading(true);
+    await Future.delayed(const Duration(seconds: 3));
+    // var res = await _authRepository.createAccount({});
+    setLoading(false);
   }
 }
