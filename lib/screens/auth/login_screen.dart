@@ -7,7 +7,7 @@ import 'package:tunyce/controllers/auth_controller.dart';
 import 'package:tunyce/core/common/app_colors.dart';
 import 'package:tunyce/core/common/constants.dart';
 import 'package:tunyce/di/app_bindings.dart';
-import 'package:tunyce/screens/auth/forgotpassword.dart';
+import 'package:tunyce/screens/auth/forgot_password.dart';
 import 'package:tunyce/screens/main_screen.dart';
 import 'package:tunyce/screens/auth/signup_screen.dart';
 import 'package:tunyce/widgets/primary_button.dart';
