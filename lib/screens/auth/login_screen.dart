@@ -42,8 +42,8 @@ class LoginScreen extends GetView<AuthController> {
                   const SizedBox(height: 20),
                   TextInputWidget(
                     controller: controller.emailController,
-                    prefixIcon: const Icon(
-                      Icons.account_box_outlined,
+                    prefixIcon: Icon(
+                      MdiIcons.emailOutline,
                       color: Colors.redAccent,
                     ),
                     hintText: 'Enter your email',
@@ -60,7 +60,7 @@ class LoginScreen extends GetView<AuthController> {
                       ),
                       suffixIcon: InkWell(
                         onTap: () {
-                          controller.isSignUpPassObscure.toggle();
+                          controller.isPassObscure.toggle();
                         },
                         child: Icon(
                           (controller.isPassObscure.value)
