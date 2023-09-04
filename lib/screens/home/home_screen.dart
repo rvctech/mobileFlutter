@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tunyce/controllers/home_controller.dart';
+import 'package:tunyce/core/common/app_colors.dart';
 import 'package:tunyce/models/genre_model.dart';
 import 'package:tunyce/widgets/drawer.dart';
 
@@ -167,16 +170,35 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemBuilder: (context, index) {
                               GenreData? genre =
                                   homeController.genreData?[index];
-                              return Container(
-                                height: 150,
-                                width: 150,
-                                margin: const EdgeInsets.only(right: 12),
-                                decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Center(
-                                  child: Text('${genre?.name}'),
+                              return GestureDetector(
+                                onTap: () {
+                                  log('Fetch songs for id: ${genre?.id}');
+                                },
+                                child: Container(
+                                  height: 150,
+                                  width: 150,
+                                  margin: const EdgeInsets.only(right: 12),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius: BorderRadius.circular(12),
+                                    image: DecorationImage(
+                                        image: const NetworkImage(
+                                            'https://images.unsplash.com/photo-1530352865347-3c2e277abefe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1174&q=80'),
+                                        colorFilter: ColorFilter.mode(
+                                          Colors.black.withOpacity(0.1),
+                                          BlendMode.darken,
+                                        )),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      '${genre?.name}',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               );
                             },
