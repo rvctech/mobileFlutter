@@ -1,31 +1,54 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
-class AppDrawer extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tunyce/controllers/auth_controller.dart';
+import 'package:tunyce/core/common/app_colors.dart';
+
+class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
 
+  @override
+  State<AppDrawer> createState() => _AppDrawerState();
+}
+
+class _AppDrawerState extends State<AppDrawer> {
+  final authController = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.redAccent,
+          DrawerHeader(
+            decoration: const BoxDecoration(
+              color: AppColors.primaryColor,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  radius: 40, // Adjust the radius as needed
-                  backgroundImage: AssetImage('assets/images/icon.jpg'),
+                const Center(
+                  child: CircleAvatar(
+                    radius: 40, // Adjust the radius as needed
+                    backgroundImage: AssetImage('assets/images/icon.jpg'),
+                  ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
-                  'Farid',
-                  style: TextStyle(
+                  '${authController.currentUser?.firstName} ${authController.currentUser?.lastName}',
+                  style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 25,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  '${authController.currentUser?.email}',
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.8),
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -69,7 +92,10 @@ class AppDrawer extends StatelessWidget {
             title: Text('Settings'),
           ),
           const ListTile(
-            leading: Icon(Icons.logout),
+            leading: Icon(
+              Icons.logout,
+              color: AppColors.primaryColor,
+            ),
             title: Text('Logut'),
           ),
           const Divider(thickness: 2),

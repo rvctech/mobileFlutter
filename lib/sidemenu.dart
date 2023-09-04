@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class SideMenuPage extends StatefulWidget {
+  const SideMenuPage({super.key});
+
   @override
   _SideMenuPageState createState() => _SideMenuPageState();
 }
@@ -48,7 +50,7 @@ class _SideMenuPageState extends State<SideMenuPage> {
           future: fetchVideoData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator(); // Display a loading indicator while fetching data
+              return const CircularProgressIndicator(); // Display a loading indicator while fetching data
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else {
@@ -135,7 +137,7 @@ class _SideMenuPageState extends State<SideMenuPage> {
         ),
 
         //Third menu option in home scree
-        Container(
+        SizedBox(
           height: 150,
           child: Swiper(
             itemCount: 5, // Number of cards

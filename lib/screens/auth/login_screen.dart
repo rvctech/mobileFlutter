@@ -9,6 +9,7 @@ import 'package:tunyce/screens/auth/forgotpassword.dart';
 import 'package:tunyce/screens/main_screen.dart';
 import 'package:tunyce/sidemenu.dart';
 import 'package:tunyce/screens/auth/signup.dart';
+import 'package:tunyce/widgets/text_input.dart';
 
 class LoginBody extends GetView<AuthController> {
   const LoginBody({super.key});
@@ -39,42 +40,26 @@ class LoginBody extends GetView<AuthController> {
                   const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                    child: TextFormField(
+                    child: TextInputWidget(
                       controller: controller.emailController,
-                      style: const TextStyle(color: Colors.white),
-                      decoration: const InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.account_box_outlined,
-                            color: Colors.redAccent,
-                          ),
-                          hintText: 'Email',
-                          hintStyle: TextStyle(color: Colors.grey),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.redAccent))),
+                      prefixIcon: const Icon(
+                        Icons.account_box_outlined,
+                        color: Colors.redAccent,
+                      ),
+                      hintText: 'Enter your email',
+                      labelText: 'Email',
                     ),
                   ),
                   const SizedBox(height: 16),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                    child: TextFormField(
+                    child: TextInputWidget(
                       controller: controller.passwordController,
-                      style: const TextStyle(color: Colors.white),
                       obscureText: true,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Password is required';
-                        }
-                        return null;
-                      },
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.password_outlined,
-                            color: Colors.redAccent),
-                        hintText: 'Password',
-                        hintStyle: TextStyle(color: Colors.grey),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.redAccent),
-                        ),
-                      ),
+                      prefixIcon: const Icon(Icons.password_outlined,
+                          color: Colors.redAccent),
+                      hintText: 'Password',
+                      labelText: 'Password',
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -93,11 +78,6 @@ class LoginBody extends GetView<AuthController> {
                             () => const MainScreen(),
                             binding: AppBindigs(),
                           );
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) => MainScreen()),
-                          // );
                         } else {
                           Fluttertoast.showToast(
                               msg: "$res",

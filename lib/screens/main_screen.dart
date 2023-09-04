@@ -1,8 +1,5 @@
-import 'dart:convert';
-
-import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:tunyce/core/common/app_colors.dart';
 import 'package:tunyce/screens/account/account_screen.dart';
 import 'package:tunyce/screens/home/home_screen.dart';
 
@@ -39,17 +36,31 @@ class _MainScreenState extends State<MainScreen> {
           });
         },
         type: BottomNavigationBarType.fixed,
+        selectedItemColor: AppColors.primaryColor,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, size: 24, color: Colors.redAccent),
-            // Set the color here
+            icon: Icon(
+              Icons.home,
+              size: 24,
+              color: Colors.grey,
+            ),
+            activeIcon: Icon(
+              Icons.home,
+              size: 24,
+              color: AppColors.primaryColor,
+            ),
             label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.search,
               size: 24,
-              color: Colors.redAccent,
+              color: Colors.grey,
+            ),
+            activeIcon: Icon(
+              Icons.search,
+              size: 24,
+              color: AppColors.primaryColor,
             ),
             label: 'Search',
           ),
@@ -57,7 +68,12 @@ class _MainScreenState extends State<MainScreen> {
             icon: Icon(
               Icons.music_note,
               size: 24,
-              color: Colors.redAccent,
+              color: Colors.grey,
+            ),
+            activeIcon: Icon(
+              Icons.music_note,
+              size: 24,
+              color: AppColors.primaryColor,
             ),
             label: 'Library',
           ),
@@ -65,7 +81,12 @@ class _MainScreenState extends State<MainScreen> {
             icon: Icon(
               Icons.person,
               size: 24,
-              color: Colors.redAccent,
+              color: Colors.grey,
+            ),
+            activeIcon: Icon(
+              Icons.person,
+              size: 24,
+              color: AppColors.primaryColor,
             ),
             label: 'Account',
           ),

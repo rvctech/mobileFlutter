@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:tunyce/controllers/base_controller.dart';
+import 'package:tunyce/models/login_model.dart';
 import 'package:tunyce/repositories/auth_repository.dart';
 
 class AuthController extends BaseController {
@@ -10,6 +10,9 @@ class AuthController extends BaseController {
   TextEditingController passwordController = TextEditingController();
 
   final _authRepository = AuthRepositoy();
+
+  LoginData? _currentUser;
+  LoginData? get currentUser => _currentUser;
 
   @override
   onInit() async {
@@ -28,7 +31,9 @@ class AuthController extends BaseController {
       passwordController.text,
     );
     setLoading(false);
-
-    return res;
+    if (res is LoginData) {
+      _currentUser = res;
+      return true;
+    }
   }
 }

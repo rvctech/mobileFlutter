@@ -12,7 +12,6 @@ class HomeRepositoy {
         Uri.parse('${Constants.baseURL}/videos/all_video_types/v1/'),
         headers: {'Content-Type': 'application/json'},
       );
-      log('Genres Res: ${response.body}');
       var decodedRes = jsonDecode(response.body);
       if (response.statusCode == 200) {
         final genreData = genreDataFromJson(response.body);
