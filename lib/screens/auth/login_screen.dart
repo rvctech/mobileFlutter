@@ -1,14 +1,15 @@
-import 'dart:developer';
-
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:tunyce/controllers/auth_controller.dart';
+import 'package:tunyce/core/common/app_colors.dart';
+import 'package:tunyce/core/common/constants.dart';
 import 'package:tunyce/di/app_bindings.dart';
 import 'package:tunyce/screens/auth/forgotpassword.dart';
 import 'package:tunyce/screens/main_screen.dart';
-import 'package:tunyce/sidemenu.dart';
-import 'package:tunyce/screens/auth/signup.dart';
+import 'package:tunyce/screens/auth/signup_screen.dart';
 import 'package:tunyce/widgets/text_input.dart';
 
 class LoginBody extends GetView<AuthController> {
@@ -33,7 +34,7 @@ class LoginBody extends GetView<AuthController> {
                         border: Border.all(
                             color: Colors.transparent), // Remove border
                       ),
-                      child: Image.asset('assets/images/logo.jpg',
+                      child: Image.asset(Constants.appLogo,
                           width: 270, height: 240),
                     ),
                   ),
@@ -53,13 +54,28 @@ class LoginBody extends GetView<AuthController> {
                   const SizedBox(height: 16),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                    child: TextInputWidget(
-                      controller: controller.passwordController,
-                      obscureText: true,
-                      prefixIcon: const Icon(Icons.password_outlined,
-                          color: Colors.redAccent),
-                      hintText: 'Password',
-                      labelText: 'Password',
+                    child: Obx(
+                      () => TextInputWidget(
+                        controller: controller.passwordController,
+                        obscureText: controller.isPassObscure.value,
+                        prefixIcon: const Icon(
+                          Icons.password_outlined,
+                          color: Colors.redAccent,
+                        ),
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            controller.isSignUpPassObscure.toggle();
+                          },
+                          child: Icon(
+                            (controller.isPassObscure.value)
+                                ? MdiIcons.eyeOutline
+                                : MdiIcons.eyeOffOutline,
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
+                        hintText: 'Password',
+                        labelText: 'Password',
+                      ),
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -106,25 +122,27 @@ class LoginBody extends GetView<AuthController> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Navigate to the SignUpScreen when "Sign Up" is pressed
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SignUpScreen()),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.redAccent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          )),
-                      child: const Text('Sign Up'),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Don\'t have an account? ',
+                      style: const TextStyle(color: Colors.grey),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Get.to(() => const SignUpScreen());
+                        },
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Sign Up',
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Get.to(() => const SignUpScreen());
+                            },
+                          style: const TextStyle(
+                            color: AppColors.primaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 40),

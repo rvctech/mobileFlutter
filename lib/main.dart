@@ -19,10 +19,12 @@ class TunyceApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primaryColor: AppColors.primaryColor,
-          appBarTheme: const AppBarTheme(
-            backgroundColor: AppColors.primaryColor,
-          )),
+        primaryColor: AppColors.primaryColor,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: AppColors.primaryColor,
+        ),
+        scaffoldBackgroundColor: Colors.black,
+      ),
     );
   }
 }
