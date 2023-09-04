@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tunyce/controllers/base_controller.dart';
 import 'package:tunyce/repositories/auth_repository.dart';
 
-class AuthController extends GetxController {
+class AuthController extends BaseController {
   // Login
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   final _authRepository = AuthRepositoy();
-  var isLoading = false.obs;
-
-  setLoading(bool loading) async {
-    isLoading.value = loading;
-    update();
-  }
 
   @override
   onInit() async {
