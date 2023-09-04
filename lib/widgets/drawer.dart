@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tunyce/controllers/auth_controller.dart';
 import 'package:tunyce/core/common/app_colors.dart';
+import 'package:tunyce/widgets/custom_text.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
@@ -15,6 +16,7 @@ class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Colors.black,
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
@@ -54,49 +56,91 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
 
           ListTile(
-            leading: const Icon(Icons.account_circle),
-            title: const Text('Profile'),
+            leading: const Icon(
+              Icons.account_circle,
+              color: Colors.white,
+            ),
+            title: const CustomText(
+              text: 'Profile',
+              color: Colors.white,
+            ),
             onTap: () {
               // Handle menu item 1 tap
             },
           ),
           ListTile(
-            leading: const Icon(Icons.search),
-            title: const Text('Discover'),
+            leading: const Icon(
+              Icons.search,
+              color: Colors.white,
+            ),
+            title: const CustomText(
+              text: 'Search',
+              color: Colors.white,
+            ),
             onTap: () {
               // Handle menu item 2 tap
             },
           ),
           ListTile(
-            leading: const Icon(Icons.chrome_reader_mode_outlined),
-            title: const Text('Creator'),
+            leading: const Icon(
+              Icons.chrome_reader_mode_outlined,
+              color: Colors.white,
+            ),
+            title: const CustomText(
+              text: 'Creator',
+              color: Colors.white,
+            ),
             onTap: () {
               // Handle menu item 2 tap
             },
           ),
           ListTile(
-            leading: const Icon(Icons.wallet),
-            title: const Text('Wallet'),
+            leading: const Icon(
+              Icons.wallet,
+              color: Colors.white,
+            ),
+            title: const CustomText(
+              text: 'Wallet',
+              color: Colors.white,
+            ),
             onTap: () {
               // Handle menu item 2 tap
             },
           ),
 
-          const Divider(thickness: 2),
-          //SizedBox(height: 50),
-          const ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
+          const Divider(
+            thickness: 2,
+            color: Colors.white12,
           ),
-          const ListTile(
-            leading: Icon(
+          //SizedBox(height: 50),
+          ListTile(
+            leading: const Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            title: const CustomText(
+              text: 'Settings',
+              color: Colors.white,
+            ),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: const Icon(
               Icons.logout,
               color: AppColors.primaryColor,
             ),
-            title: Text('Logut'),
+            title: const CustomText(
+              text: 'Logout',
+              color: AppColors.primaryColor,
+            ),
+            onTap: () async {
+              //logout
+            },
           ),
-          const Divider(thickness: 2),
-          // Add more menu items as needed
+          const Divider(
+            thickness: 2,
+            color: Colors.white12,
+          ),
         ],
       ),
     );

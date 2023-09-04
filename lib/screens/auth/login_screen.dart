@@ -93,29 +93,33 @@ class LoginScreen extends GetView<AuthController> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  PrimaryButtonWidget(
-                    label: 'Login',
-                    onTap: () async {
-                      if (!controller.loginFormKey.currentState!.validate()) {
-                        return;
-                      }
-                      var res = await controller.loginUser();
+                  Obx(
+                    () => PrimaryButtonWidget(
+                      label: 'Login',
+                      isLoading: controller.isLoading.value,
+                      onTap: () async {
+                        if (!controller.loginFormKey.currentState!.validate()) {
+                          return;
+                        }
+                        var res = await controller.loginUser();
 
-                      if (res == true) {
-                        Get.offAll(
-                          () => const MainScreen(),
-                          binding: AppBindigs(),
-                        );
-                      } else {
-                        Fluttertoast.showToast(
+                        if (res == true) {
+                          Get.offAll(
+                            () => const MainScreen(),
+                            binding: AppBindigs(),
+                          );
+                        } else {
+                          Fluttertoast.showToast(
                             msg: "$res",
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.CENTER,
                             timeInSecForIosWeb: 1,
                             textColor: Colors.white,
-                            fontSize: 16.0);
-                      }
-                    },
+                            fontSize: 16.0,
+                          );
+                        }
+                      },
+                    ),
                   ),
                   const SizedBox(height: 10),
                   RichText(

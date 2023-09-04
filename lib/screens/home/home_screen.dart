@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tunyce/controllers/home_controller.dart';
-import 'package:tunyce/core/common/app_colors.dart';
 import 'package:tunyce/models/genre_model.dart';
+import 'package:tunyce/widgets/custom_text.dart';
 import 'package:tunyce/widgets/drawer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -53,13 +53,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         const Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              'Trending',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            CustomText(
+                              text: 'Trending',
+                              size: 20,
+                              weight: FontWeight.bold,
                             ),
+
                             // TextButton(onPressed: () {}, child: const Text('View All'))
                           ],
                         ),
@@ -88,12 +87,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const Text(
-                          'Artists',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        const CustomText(
+                          text: 'Artists',
+                          size: 20,
+                          weight: FontWeight.bold,
                         ),
                         const SizedBox(
                           height: 20,
@@ -120,12 +117,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const Text(
-                          'Playlist',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        const CustomText(
+                          text: 'Playlists',
+                          size: 20,
+                          weight: FontWeight.bold,
                         ),
                         const SizedBox(
                           height: 20,
@@ -152,12 +147,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const Text(
-                          'Genres',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        const CustomText(
+                          text: 'Genres',
+                          size: 20,
+                          weight: FontWeight.bold,
                         ),
                         const SizedBox(
                           height: 20,
