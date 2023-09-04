@@ -12,16 +12,15 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Account'),
+      ),
       drawer: const AppDrawer(),
       body: const SafeArea(
-          child: Column(
-        children: [
-          Center(
-            child: Text('AccountScwsefccreen'),
-          )
-        ],
-      )),
+        child: Column(
+          children: [],
+        ),
+      ),
     );
   }
 }

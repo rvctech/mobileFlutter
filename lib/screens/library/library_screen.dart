@@ -12,15 +12,13 @@ class _LibraryScreenState extends State<LibraryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Library'),
+      ),
       drawer: const AppDrawer(),
       body: const SafeArea(
           child: Column(
-        children: [
-          Center(
-            child: Text('LibraryScreen'),
-          )
-        ],
+        children: [],
       )),
     );
   }

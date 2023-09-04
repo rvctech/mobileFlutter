@@ -12,15 +12,13 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Search'),
+      ),
       drawer: const AppDrawer(),
       body: const SafeArea(
           child: Column(
-        children: [
-          Center(
-            child: Text('SearchScreen'),
-          )
-        ],
+        children: [],
       )),
     );
   }

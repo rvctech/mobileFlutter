@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tunyce/controllers/auth_controller.dart';
@@ -26,7 +24,6 @@ class _AppDrawerState extends State<AppDrawer> {
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Center(
                   child: CircleAvatar(
