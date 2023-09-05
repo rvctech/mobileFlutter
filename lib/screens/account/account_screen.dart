@@ -37,17 +37,6 @@ class _AccountScreenState extends State<AccountScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomText(
-                text: "You're currently on a free plan.",
-                size: 18,
-                weight: FontWeight.w400,
-              ),
-              const SizedBox(height: 20),
-              const CustomText(
-                text: 'Upgrade to a premium plan to get more features.',
-                size: 16,
-                weight: FontWeight.w400,
-              ),
               const SizedBox(height: 20),
               Row(
                 children: [
