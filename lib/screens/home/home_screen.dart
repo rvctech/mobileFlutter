@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tunyce/controllers/home_controller.dart';
+import 'package:tunyce/core/common/constants.dart';
 import 'package:tunyce/models/genre_model.dart';
 import 'package:tunyce/widgets/custom_text.dart';
 import 'package:tunyce/widgets/drawer.dart';
@@ -177,7 +178,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     borderRadius: BorderRadius.circular(12),
                                     image: DecorationImage(
                                         image: const NetworkImage(
-                                            'https://images.unsplash.com/photo-1530352865347-3c2e277abefe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1174&q=80'),
+                                          Constants.defaultImageUrl,
+                                        ),
                                         colorFilter: ColorFilter.mode(
                                           Colors.black.withOpacity(0.1),
                                           BlendMode.darken,

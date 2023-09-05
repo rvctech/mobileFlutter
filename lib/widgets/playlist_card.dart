@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:tunyce/core/common/app_colors.dart';
 import 'package:tunyce/core/common/constants.dart';
 
-Widget customArtistCard(
+Widget playlistCard(
   BuildContext context, {
-  String? imageURL,
-  required String artistName,
-  required String price,
+  required String thumbnailURL,
+  required String playlistName,
+  required String songCount,
 }) {
   return Container(
     height: 300,
@@ -24,10 +23,8 @@ Widget customArtistCard(
             height: 200,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                image: NetworkImage(
-                  imageURL ?? Constants.defaultImageUrl,
-                ),
+              image: const DecorationImage(
+                image: NetworkImage(Constants.defaultImageUrl),
                 fit: BoxFit.cover,
               ),
             ),
@@ -43,7 +40,7 @@ Widget customArtistCard(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    artistName,
+                    playlistName,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -53,14 +50,14 @@ Widget customArtistCard(
                   const SizedBox(height: 10),
                   Row(
                     children: [
-                      Icon(
-                        MdiIcons.cashCheck,
+                      const Icon(
+                        Icons.music_note,
                         color: AppColors.primaryColor,
                       ),
                       const SizedBox(width: 5),
-                      const Text(
-                        "Ksh. 100",
-                        style: TextStyle(
+                      Text(
+                        "Songs: $songCount",
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 15,
                           fontWeight: FontWeight.w400,

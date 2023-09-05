@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tunyce/controllers/home_controller.dart';
@@ -38,7 +37,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
   @override
   void initState() {
     super.initState();
-    _playVideo(init: true);
+    // _playVideo(init: true);
   }
 
   @override
