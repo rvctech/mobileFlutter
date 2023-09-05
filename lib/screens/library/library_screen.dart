@@ -2,10 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tunyce/controllers/home_controller.dart';
-import 'package:tunyce/core/common/app_colors.dart';
-import 'package:tunyce/models/latest_mix_response.dart';
-import 'package:tunyce/widgets/custom_text.dart';
 import 'package:tunyce/widgets/drawer.dart';
+import 'package:video_player/video_player.dart';
+
+import 'artists_screen.dart';
+import 'playlists_screen.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({super.key});
@@ -16,72 +17,57 @@ class LibraryScreen extends StatefulWidget {
 
 class _LibraryScreenState extends State<LibraryScreen> {
   final homeController = Get.find<HomeController>();
+  late VideoPlayerController _controller;
+
+  void _playVideo({int index = 0, bool init = false}) {
+    if (index < 0 || index >= homeController.latestMixes!.length) return;
+    _controller = VideoPlayerController.networkUrl(
+      Uri.parse("https://www.youtube.com/shorts/nMBml1iNvtk"),
+      // Uri.parse("${homeController.latestMixes?[index].video}"),
+    )
+      ..addListener(() => setState(() {}))
+      ..setLooping(true)
+      ..initialize().then((_) {
+        if (init) {
+          _controller.play();
+        }
+        setState(() {});
+      });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playVideo(init: true);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  static const List<Tab> myTabs = <Tab>[
+    Tab(text: 'My Playlists'),
+    Tab(text: 'My Artists'),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Library'),
-      ),
-      drawer: const AppDrawer(),
-      body: SafeArea(
-          child: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: homeController.latestMixes?.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                LatestMix? mix = homeController.latestMixes?[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: CachedNetworkImage(
-                          height: 100,
-                          width: 100,
-                          imageUrl: "${mix?.thumbnail}",
-                          fit: BoxFit.fill,
-                          placeholder: (context, url) => Container(
-                            height: 164,
-                            width: 78,
-                            color: Colors.grey[200],
-                            child: const Center(
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                    AppColors.primaryColor),
-                              ),
-                            ),
-                          ),
-                          errorWidget: (context, url, error) => Container(
-                            height: 164,
-                            width: 78,
-                            decoration: BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: const Icon(
-                              Icons.music_note,
-                              color: AppColors.primaryColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: CustomText(
-                          text: '${mix?.name}',
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
+        drawer: const AppDrawer(),
+        body: DefaultTabController(
+          length: myTabs.length,
+          child: Scaffold(
+            appBar: AppBar(
+              bottom: const TabBar(
+                tabs: myTabs,
+              ),
             ),
+            body: const TabBarView(children: [
+              PlaylistScreen(),
+              ArtistsScreen(),
+            ]),
           ),
-        ],
-      )),
-    );
+        ));
   }
 }

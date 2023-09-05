@@ -13,10 +13,12 @@ class CustomText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       '$text',
+      overflow: TextOverflow.ellipsis,
       style: TextStyle(
-          fontSize: size ?? 16,
-          color: color ?? Colors.white,
-          fontWeight: weight ?? FontWeight.normal),
+        fontSize: size ?? 16,
+        color: color ?? Colors.white,
+        fontWeight: weight ?? FontWeight.normal,
+      ),
     );
   }
 }
