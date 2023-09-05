@@ -49,10 +49,10 @@ class AuthRepositoy {
       log("response.body: ${response.body}");
       var decodedRes = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        final loginResponse = loginResponseFromJson(response.body);
+        final loginData = loginDataFromJson(response.body);
 
-        await prefs.setString('access_token', loginResponse.data.access);
-        return loginResponse.data;
+        await prefs.setString('access_token', '${loginData.access}');
+        return loginData;
       } else {
         Map<String, dynamic> errorMap = decodedRes;
 
