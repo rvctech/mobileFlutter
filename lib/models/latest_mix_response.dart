@@ -1,16 +1,12 @@
-// To parse this JSON data, do
-//
-//     final videoData = videoDataFromJson(jsonString);
-
 import 'dart:convert';
 
-List<VideoData> videoDataFromJson(String str) =>
-    List<VideoData>.from(json.decode(str).map((x) => VideoData.fromJson(x)));
+List<LatestMix> latestMixFromJson(String str) =>
+    List<LatestMix>.from(json.decode(str).map((x) => LatestMix.fromJson(x)));
 
-String videoDataToJson(List<VideoData> data) =>
+String latestMixToJson(List<LatestMix> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class VideoData {
+class LatestMix {
   int id;
   String? name;
   dynamic videofile;
@@ -23,7 +19,7 @@ class VideoData {
   int? category;
   int? owner;
 
-  VideoData({
+  LatestMix({
     required this.id,
     required this.name,
     this.videofile,
@@ -37,7 +33,7 @@ class VideoData {
     this.owner,
   });
 
-  factory VideoData.fromJson(Map<String, dynamic> json) => VideoData(
+  factory LatestMix.fromJson(Map<String, dynamic> json) => LatestMix(
         id: json["id"],
         name: json["name"],
         videofile: json["videofile"],

@@ -16,12 +16,10 @@ class AuthRepositoy {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(signUpPayload),
       );
+      log("response.body: ${response.body}");
       var decodedRes = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        final loginData = loginDataFromJson(response.body);
-
-        await prefs.setString('access_token', loginData.access);
-        return loginData;
+        return true;
       } else {
         Map<String, dynamic> errorMap = decodedRes;
 
@@ -32,7 +30,7 @@ class AuthRepositoy {
         return errorMessage;
       }
     } on SocketException catch (e) {
-      log('Error: $e');
+      log('SocketException: $e');
       throw 'Check your internet connection';
     } catch (e) {
       log('Error: $e');
@@ -48,12 +46,13 @@ class AuthRepositoy {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': email, 'password': password}),
       );
+      log("response.body: ${response.body}");
       var decodedRes = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        final loginData = loginDataFromJson(response.body);
+        final loginResponse = loginResponseFromJson(response.body);
 
-        await prefs.setString('access_token', loginData.access);
-        return loginData;
+        await prefs.setString('access_token', loginResponse.data.access);
+        return loginResponse.data;
       } else {
         Map<String, dynamic> errorMap = decodedRes;
 

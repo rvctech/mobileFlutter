@@ -1,10 +1,33 @@
-//     final loginData = loginDataFromJson(jsonString);
+// To parse this JSON data, do
+//
+//     final loginResponse = loginResponseFromJson(jsonString);
 
 import 'dart:convert';
 
-LoginData loginDataFromJson(String str) => LoginData.fromJson(json.decode(str));
+LoginResponse loginResponseFromJson(String str) =>
+    LoginResponse.fromJson(json.decode(str));
 
-String loginDataToJson(LoginData data) => json.encode(data.toJson());
+String loginResponseToJson(LoginResponse data) => json.encode(data.toJson());
+
+class LoginResponse {
+  bool success;
+  LoginData data;
+
+  LoginResponse({
+    required this.success,
+    required this.data,
+  });
+
+  factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
+        success: json["success"],
+        data: LoginData.fromJson(json["data"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "success": success,
+        "data": data.toJson(),
+      };
+}
 
 class LoginData {
   String email;

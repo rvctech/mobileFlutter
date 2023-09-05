@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:tunyce/core/common/constants.dart';
 import 'package:tunyce/models/genre_model.dart';
-import 'package:tunyce/models/video_response.dart';
+import 'package:tunyce/models/latest_mix_response.dart';
 
 class HomeRepositoy {
   Future<dynamic> fetchGenres() async {
@@ -22,15 +22,15 @@ class HomeRepositoy {
     }
   }
 
-  Future<dynamic> fetchVideos() async {
+  Future<dynamic> fetchLatestMixes() async {
     try {
       final response = await http.get(
         Uri.parse('${Constants.baseURL}/videos/mixes/latest/v1/'),
         headers: {'Content-Type': 'application/json'},
       );
       if (response.statusCode == 200) {
-        final videoData = videoDataFromJson(response.body);
-        return videoData;
+        final mixData = latestMixFromJson(response.body);
+        return mixData;
       } else {
         return null;
       }

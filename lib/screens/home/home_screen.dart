@@ -118,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 20,
                         ),
                         const CustomText(
-                          text: 'Playlists',
+                          text: 'Latest Mix',
                           size: 20,
                           weight: FontWeight.bold,
                         ),
@@ -128,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(
                           height: 100,
                           child: ListView.builder(
-                            itemCount: 6,
+                            itemCount: homeController.latestMixes?.length,
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {

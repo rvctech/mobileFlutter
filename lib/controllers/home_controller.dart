@@ -1,5 +1,5 @@
 import 'package:tunyce/models/genre_model.dart';
-import 'package:tunyce/models/video_response.dart';
+import 'package:tunyce/models/latest_mix_response.dart';
 import 'package:tunyce/repositories/home_repository.dart';
 
 import 'base_controller.dart';
@@ -9,13 +9,13 @@ class HomeController extends BaseController {
 
   List<GenreData>? _genreData;
   List<GenreData>? get genreData => _genreData;
-  List<VideoData>? _videoData;
-  List<VideoData>? get videoList => _videoData;
+  List<LatestMix>? _latesMixes;
+  List<LatestMix>? get latestMixes => _latesMixes;
 
   @override
   void onInit() {
     fetchGenres();
-    fetchVideos();
+    fetchLatestMixes();
     super.onInit();
   }
 
@@ -28,11 +28,11 @@ class HomeController extends BaseController {
     setLoading(false);
   }
 
-  fetchVideos() async {
+  fetchLatestMixes() async {
     setLoading(true);
-    var res = await homeRepository.fetchVideos();
+    var res = await homeRepository.fetchLatestMixes();
     if (res != null) {
-      _videoData = res;
+      _latesMixes = res;
     }
     setLoading(false);
   }
