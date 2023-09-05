@@ -23,6 +23,7 @@ class TextInputWidget extends StatelessWidget {
     this.textCapitalization,
     this.errorText,
     this.fillColor,
+    this.onChanged,
   });
 
   final TextEditingController? controller;
@@ -43,6 +44,7 @@ class TextInputWidget extends StatelessWidget {
   final TextCapitalization? textCapitalization;
   final String? errorText;
   final Color? fillColor;
+  final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +110,7 @@ class TextInputWidget extends StatelessWidget {
             ),
             suffixIcon: suffixIcon,
           ),
+          onChanged: onChanged,
           validator: validator ??
               (value) {
                 if (value == null || value.isEmpty) {

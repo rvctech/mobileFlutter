@@ -9,7 +9,7 @@ import 'package:tunyce/models/login_model.dart';
 
 class AuthRepositoy {
   Future<dynamic> createAccount(Map<String, dynamic> signUpPayload) async {
-    final prefs = await SharedPreferences.getInstance();
+    // final prefs = await SharedPreferences.getInstance();
     try {
       final response = await http.post(
         Uri.parse('${Constants.baseURL}/authentication/login/v1/'),
@@ -46,7 +46,6 @@ class AuthRepositoy {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': email, 'password': password}),
       );
-      log("response.body: ${response.body}");
       var decodedRes = jsonDecode(response.body);
       if (response.statusCode == 200) {
         final loginData = loginDataFromJson(response.body);
