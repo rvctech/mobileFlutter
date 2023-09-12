@@ -40,7 +40,8 @@ class PrimaryButtonWidget extends StatelessWidget {
         child: (isLoading == true)
             ? const CircularProgressIndicator.adaptive(
                 strokeWidth: 2,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                valueColor:
+                    AlwaysStoppedAnimation<Color>(AppColors.primaryColor),
                 backgroundColor: Colors.white,
               )
             : Text(

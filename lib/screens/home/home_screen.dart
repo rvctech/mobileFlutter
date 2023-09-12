@@ -7,6 +7,7 @@ import 'package:tunyce/core/common/constants.dart';
 import 'package:tunyce/models/genre_model.dart';
 import 'package:tunyce/widgets/custom_text.dart';
 import 'package:tunyce/widgets/drawer.dart';
+import 'package:tunyce/widgets/loader.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -39,8 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: const AppDrawer(),
       body: Obx(
-        () => homeController.isLoading.value
-            ? const Center(child: CircularProgressIndicator())
+        () => (homeController.isLoading.value)
+            ? customLoader()
             : SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
