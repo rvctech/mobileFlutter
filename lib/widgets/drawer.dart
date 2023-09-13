@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tunyce/controllers/auth_controller.dart';
 import 'package:tunyce/core/common/app_colors.dart';
+import 'package:tunyce/screens/auth/login_screen.dart';
 import 'package:tunyce/widgets/custom_text.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -134,7 +135,7 @@ class _AppDrawerState extends State<AppDrawer> {
               color: AppColors.primaryColor,
             ),
             onTap: () async {
-              //logout
+              Get.offAll(() => const LoginScreen());
             },
           ),
           const Divider(

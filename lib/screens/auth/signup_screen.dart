@@ -33,8 +33,9 @@ class SignUpScreen extends GetView<AuthController> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const TextInputWidget(
-                    prefixIcon: Icon(
+                  TextInputWidget(
+                    controller: controller.firstNameController,
+                    prefixIcon: const Icon(
                       Icons.person,
                       color: AppColors.primaryColor,
                     ),
@@ -42,8 +43,9 @@ class SignUpScreen extends GetView<AuthController> {
                     labelText: 'First Name',
                   ),
                   const SizedBox(height: 16),
-                  const TextInputWidget(
-                    prefixIcon: Icon(
+                  TextInputWidget(
+                    controller: controller.middleNameController,
+                    prefixIcon: const Icon(
                       Icons.person,
                       color: AppColors.primaryColor,
                     ),
@@ -51,8 +53,9 @@ class SignUpScreen extends GetView<AuthController> {
                     labelText: 'Middle Name',
                   ),
                   const SizedBox(height: 16),
-                  const TextInputWidget(
-                    prefixIcon: Icon(
+                  TextInputWidget(
+                    controller: controller.lastNameController,
+                    prefixIcon: const Icon(
                       Icons.person,
                       color: AppColors.primaryColor,
                     ),
@@ -60,17 +63,20 @@ class SignUpScreen extends GetView<AuthController> {
                     labelText: 'Last Name',
                   ),
                   const SizedBox(height: 16),
-                  const TextInputWidget(
-                    prefixIcon: Icon(
+                  TextInputWidget(
+                    controller: controller.emailSignUpController,
+                    prefixIcon: const Icon(
                       Icons.email_outlined,
                       color: AppColors.primaryColor,
                     ),
                     hintText: 'Email',
                     labelText: 'Email',
+                    keyboardType: TextInputType.emailAddress,
                   ),
                   const SizedBox(height: 16),
                   Obx(
                     () => TextInputWidget(
+                      controller: controller.signUpPasswordController,
                       prefixIcon: const Icon(
                         Icons.password_outlined,
                         color: AppColors.primaryColor,
@@ -94,6 +100,7 @@ class SignUpScreen extends GetView<AuthController> {
                   const SizedBox(height: 16),
                   Obx(
                     () => TextInputWidget(
+                      controller: controller.confirmPasswordController,
                       prefixIcon: const Icon(
                         Icons.password_outlined,
                         color: AppColors.primaryColor,
@@ -120,7 +127,18 @@ class SignUpScreen extends GetView<AuthController> {
                       label: 'Sign Up',
                       isLoading: controller.isLoading.value,
                       onTap: () async {
-                        await controller.createAccount();
+                        var res = await controller.createAccount();
+                        if (res == true) {
+                          // show success toast
+                          Get.snackbar(
+                            'Success',
+                            'Account created successfully',
+                            snackPosition: SnackPosition.TOP,
+                            backgroundColor: Colors.green,
+                            colorText: Colors.white,
+                          );
+                          Get.back();
+                        }
                       },
                     ),
                   ),

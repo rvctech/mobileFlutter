@@ -78,6 +78,7 @@ class TextInputWidget extends StatelessWidget {
             fontWeight: FontWeight.w400,
             fontStyle: FontStyle.normal,
           ),
+          onTap: onTap,
           decoration: InputDecoration(
             hintText: hintText,
             isDense: true,

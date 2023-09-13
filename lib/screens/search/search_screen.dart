@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +12,7 @@ import 'package:tunyce/widgets/custom_text.dart';
 import 'package:tunyce/widgets/drawer.dart';
 import 'package:tunyce/widgets/loader.dart';
 import 'package:tunyce/widgets/text_input.dart';
+import 'package:video_player/video_player.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -20,6 +23,54 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final homeController = Get.find<HomeController>();
+
+  late VideoPlayerController _controller;
+
+  bool _showPlayer = false;
+
+  void _playVideo({int index = 0, bool init = false}) {
+    if (index < 0 || index >= homeController.searchedVideos.value.length) {
+      return;
+    }
+    _controller = VideoPlayerController.networkUrl(
+      // Uri.parse("${homeController.searchedVideos.value[index].video}"),
+      Uri.parse('https://samplelib.com/lib/preview/mp4/sample-5s.mp4'),
+      // Uri.parse('https://samplelib.com/lib/preview/mp4/sample-30s.mp4'),
+    )
+      ..addListener(() => setState(() {}))
+      ..setLooping(true)
+      ..initialize().then((_) {
+        if (init) {
+          _controller.play();
+        }
+        setState(() {});
+      });
+  }
+
+  @override
+  void initState() {
+    _playVideo(init: true);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  _videoDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final hours = twoDigits(duration.inHours);
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+
+    return [
+      if (duration.inHours > 0) hours,
+      minutes,
+      seconds,
+    ].join(':');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +95,9 @@ class _SearchScreenState extends State<SearchScreen> {
                     Icons.search,
                     color: AppColors.primaryColor,
                   ),
+                  onTap: () => setState(() {
+                        _showPlayer = false;
+                      }),
                   onChanged: (value) async {
                     await homeController.searchVideos(value);
                   },
@@ -73,6 +127,72 @@ class _SearchScreenState extends State<SearchScreen> {
               const SizedBox(
                 height: 20,
               ),
+              if (_showPlayer)
+                Container(
+                  height: 310,
+                  decoration: BoxDecoration(
+                      color: Colors.grey.shade900,
+                      borderRadius: const BorderRadius.vertical(
+                        bottom: Radius.circular(12),
+                      )),
+                  child: _controller.value.isInitialized
+                      ? Column(
+                          children: [
+                            SizedBox(
+                              child: AspectRatio(
+                                aspectRatio: _controller.value.aspectRatio,
+                                child: VideoPlayer(_controller),
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              children: [
+                                ValueListenableBuilder(
+                                  valueListenable: _controller,
+                                  builder:
+                                      (context, VideoPlayerValue value, child) {
+                                    return CustomText(
+                                      text: _videoDuration(value.position),
+                                      size: 20,
+                                    );
+                                  },
+                                ),
+                                Expanded(
+                                  child: SizedBox(
+                                    height: 20,
+                                    child: VideoProgressIndicator(
+                                      _controller,
+                                      allowScrubbing: true,
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10,
+                                        vertical: 0,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                CustomText(
+                                  text: _videoDuration(
+                                      _controller.value.duration),
+                                  size: 20,
+                                )
+                              ],
+                            ),
+                            IconButton(
+                              onPressed: () => _controller.value.isPlaying
+                                  ? _controller.pause()
+                                  : _controller.play(),
+                              icon: Icon(
+                                _controller.value.isPlaying
+                                    ? Icons.pause
+                                    : Icons.play_arrow,
+                                color: AppColors.primaryColor,
+                              ),
+                            ),
+                          ],
+                        )
+                      : customLoader(),
+                ),
+              const SizedBox(height: 20),
               Obx(
                 () => homeController.isLoading.value
                     ? customLoader()
@@ -169,9 +289,20 @@ class _SearchScreenState extends State<SearchScreen> {
                                       Align(
                                         alignment: Alignment.bottomRight,
                                         child: IconButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            log("VideoUrl: ${video.video}");
+                                            FocusScope.of(context).unfocus();
+                                            Future.delayed(
+                                                const Duration(
+                                                    milliseconds: 600), () {
+                                              setState(() {
+                                                _showPlayer = true;
+                                                _playVideo(index: index);
+                                              });
+                                            });
+                                          },
                                           icon: const Icon(
-                                            Icons.more_horiz,
+                                            Icons.play_circle,
                                             color: AppColors.primaryColor,
                                           ),
                                         ),

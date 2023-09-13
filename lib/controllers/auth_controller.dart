@@ -51,8 +51,20 @@ class AuthController extends BaseController {
 
   Future<dynamic> createAccount() async {
     setLoading(true);
-    await Future.delayed(const Duration(seconds: 3));
-    // var res = await _authRepository.createAccount({});
+    var res = await _authRepository.createAccount({
+      'first_name': firstNameController.text,
+      'middle_name': middleNameController.text,
+      'last_name': lastNameController.text,
+      'email': emailSignUpController.text,
+      'password': signUpPasswordController.text,
+      'hesquserrole': 8,
+      'address': 'Nairobi',
+    });
     setLoading(false);
+    if (res == true) {
+      emailController.text = emailSignUpController.text;
+      passwordController.text = signUpPasswordController.text;
+    }
+    return res;
   }
 }
